@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        /* Style untuk tampilan grid gallery */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            max-width: 90vw;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Fullscreen modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 8px;
+        }
+
+        .controls {
+            position: absolute;
+            display: flex;
+            gap: 20px;
+            bottom: 20px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .controls button {
+            background-color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .controls button:hover {
+            background-color: #dddddd;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .close-btn:hover {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gallery">
+    <!-- Menampilkan gambar dari Quiz1 hingga Quiz43 -->
+    <!-- Pastikan gambar ini berada di direktori yang sama dengan file HTML -->
+    <img src="Quiz1.jpeg" alt="Quiz1">
+    <img src="Quiz2.jpeg" alt="Quiz2">
+    <img src="Quiz3.jpeg" alt="Quiz3">
+    <img src="Quiz4.jpeg" alt="Quiz4">
+    <img src="Quiz5.jpeg" alt="Quiz5">
+    <img src="Quiz6.jpeg" alt="Quiz6">
+    <img src="Quiz7.jpeg" alt="Quiz7">
+    <img src="Quiz8.jpeg" alt="Quiz8">
+    <img src="Quiz9.jpeg" alt="Quiz9">
+    <img src="Quiz10.jpeg" alt="Quiz10">
+    <img src="Quiz11.jpeg" alt="Quiz11">
+    <img src="Quiz12.jpeg" alt="Quiz12">
+    <img src="Quiz13.jpeg" alt="Quiz13">
+    <img src="Quiz14.jpeg" alt="Quiz14">
+    <img src="Quiz15.jpeg" alt="Quiz15">
+    <img src="Quiz16.jpeg" alt="Quiz16">
+    <img src="Quiz17.jpeg" alt="Quiz17">
+    <img src="Quiz18.jpeg" alt="Quiz18">
+    <img src="Quiz19.jpeg" alt="Quiz19">
+    <img src="Quiz20.jpeg" alt="Quiz20">
+    <img src="Quiz21.jpeg" alt="Quiz21">
+    <img src="Quiz22.jpeg" alt="Quiz22">
+    <img src="Quiz23.jpeg" alt="Quiz23">
+    <img src="Quiz24.jpeg" alt="Quiz24">
+    <img src="Quiz25.jpeg" alt="Quiz25">
+    <img src="Quiz26.jpeg" alt="Quiz26">
+    <img src="Quiz27.jpeg" alt="Quiz27">
+    <img src="Quiz28.jpeg" alt="Quiz28">
+    <img src="Quiz29.jpeg" alt="Quiz29">
+    <img src="Quiz30.jpeg" alt="Quiz30">
+    <img src="Quiz31.jpeg" alt="Quiz31">
+    <img src="Quiz32.jpeg" alt="Quiz32">
+    <img src="Quiz33.jpeg" alt="Quiz33">
+    <img src="Quiz34.jpeg" alt="Quiz34">
+    <img src="Quiz35.jpeg" alt="Quiz35">
+    <img src="Quiz36.jpeg" alt="Quiz36">
+    <img src="Quiz37.jpeg" alt="Quiz37">
+    <img src="Quiz38.jpeg" alt="Quiz38">
+    <img src="Quiz39.jpeg" alt="Quiz39">
+    <img src="Quiz40.jpeg" alt="Quiz40">
+    <img src="Quiz41.jpeg" alt="Quiz41">
+    <img src="Quiz42.jpeg" alt="Quiz42">
+    <img src="Quiz43.jpeg" alt="Quiz43">
+</div>
+
+<!-- Fullscreen modal untuk menampilkan gambar dengan resolusi penuh -->
+<div class="modal" id="modal">
+    <button class="close-btn" onclick="closeModal()">Close</button>
+    <img id="modalImage" src="" alt="Full Resolution Image">
+    <div class="controls">
+        <button onclick="previousImage()">Previous</button>
+        <button onclick="nextImage()">Next</button>
+    </div>
+</div>
+
+<script>
+    // Menyimpan referensi ke gambar dan modal
+    const galleryImages = document.querySelectorAll('.gallery img');
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modalImage');
+    let currentIndex = 0;
+
+    // Fungsi untuk membuka modal dan menampilkan gambar yang dipilih
+    function openModal(index) {
+        currentIndex = index;
+        modalImage.src = galleryImages[currentIndex].src;
+        modal.style.display = 'flex';
+    }
+
+    // Fungsi untuk menutup modal
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    // Fungsi untuk menampilkan gambar berikutnya
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        modalImage.src = galleryImages[currentIndex].src;
+    }
+
+    // Fungsi untuk menampilkan gambar sebelumnya
+    function previousImage() {
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        modalImage.src = galleryImages[currentIndex].src;
+    }
+
+    // Menambahkan event listener untuk setiap gambar di galeri
+    galleryImages.forEach((img, index) => {
+        img.addEventListener('click', () => openModal(index));
+    });
+</script>
+
+</body>
+</html>
+
